@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useAssignmentStore } from "@/lib/store";
 
 // --- Mock Data ---
 
@@ -42,12 +43,11 @@ const announcements = [
   { id: 2, title: "New Library Resources", date: "1 day ago", content: "Access to IEEE Xplore is now available for all students..." },
 ];
 
-const activities = [
-  { id: 1, type: "grade", title: "Assignment 3 Graded", time: "10 mins ago", detail: "85/100 in Web Dev" },
-  { id: 2, type: "upload", title: "New Material Uploaded", time: "1 hour ago", detail: "Lecture notes on React 19" },
-];
-
 export default function DashboardPage() {
+  const { activities, loading } = useAssignmentStore();
+
+  if (loading) return <div className="p-8 text-stone-500">Loading Dashboard...</div>;
+
   return (
     <div className="p-8 max-w-(--breakpoint-2xl) mx-auto space-y-8">
       {/* Page Header */}
@@ -150,11 +150,12 @@ export default function DashboardPage() {
                 </span>
               </div>
               <div className="space-y-6">
-                {activities.map((activity) => (
+                {activities.length > 0 ? activities.map((activity) => (
                   <div key={activity.id} className="flex space-x-4">
                     <div className="mt-1">
                       <div className="w-8 h-8 rounded-full bg-stone-50 flex items-center justify-center text-stone-400">
-                        {activity.type === "grade" ? <GradeIcon /> : <UploadIcon />}
+                        {activity.type === "grade" ? <GradeIcon /> : 
+                         activity.type === "submission" ? <UploadIcon /> : <UploadIcon />}
                       </div>
                     </div>
                     <div className="flex-1">
@@ -165,7 +166,9 @@ export default function DashboardPage() {
                       <p className="text-xs text-stone-500 mt-0.5">{activity.detail}</p>
                     </div>
                   </div>
-                ))}
+                )) : (
+                  <p className="text-sm text-stone-400 text-center py-4">No recent activity.</p>
+                )}
               </div>
             </div>
           </div>
