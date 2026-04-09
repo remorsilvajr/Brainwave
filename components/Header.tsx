@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const Header = () => {
   return (
@@ -25,17 +26,19 @@ const Header = () => {
           <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white group-hover:scale-110 transition-transform"></span>
         </button>
 
-        {/* User Profile */}
-        <div className="flex items-center space-x-3 pl-6 border-l border-stone-100">
-          <div className="text-right">
+        {/* User Profile - Clicking this takes you to /profile */}
+        <Link 
+          href="/profile" 
+          className="flex items-center space-x-3 pl-6 border-l border-stone-100 group cursor-pointer"
+        >
+          <div className="text-right transition-colors group-hover:opacity-70">
             <p className="text-sm font-semibold text-stone-800">Lebron James</p>
             <p className="text-xs text-stone-400 font-medium">Student ID: 230612</p>
           </div>
-          <div className="w-10 h-10 bg-amber-100 rounded-full border-2 border-amber-200 flex items-center justify-center overflow-hidden hover:scale-105 transition-transform cursor-pointer">
-             {/* Placeholder for Profile Image */}
+          <div className="w-10 h-10 bg-amber-100 rounded-full border-2 border-amber-200 flex items-center justify-center overflow-hidden transition-all group-hover:scale-110 group-hover:border-[#F9A825]">
              <UserIcon />
           </div>
-        </div>
+        </Link>
       </div>
     </header>
   );
