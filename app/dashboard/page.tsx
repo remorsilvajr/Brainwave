@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { useAssignmentStore } from "@/lib/store";
 
 // --- Mock Data ---
@@ -45,6 +45,22 @@ const announcements = [
 
 export default function DashboardPage() {
   const { activities, loading } = useAssignmentStore();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState("title");
+
+  const processedCourses = useMemo(() => {
+    return [...courses]
+      .filter((course) => 
+        course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        course.instructor.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .sort((a, b) => {
+        if (sortBy === "title") return a.title.localeCompare(b.title);
+        if (sortBy === "title-desc") return b.title.localeCompare(a.title);
+        if (sortBy === "progress") return b.progress - a.progress;
+        return 0;
+      });
+  }, [searchQuery, sortBy]);
 
   if (loading) return <div className="p-8 text-stone-500">Loading Dashboard...</div>;
 
@@ -64,15 +80,43 @@ export default function DashboardPage() {
           
           {/* Section: Course Overview (Carousel Placeholder) */}
           <section>
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-stone-800">Course Overview</h3>
-              <button className="text-sm font-semibold text-[#F9A825] hover:text-[#D97706] transition-colors">
-                View All Courses
-              </button>
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+              <h3 className="text-xl font-bold text-stone-800 whitespace-nowrap">Course Overview</h3>
+              
+              <div className="flex flex-wrap items-center gap-3">
+                {/* Search Input */}
+                <div className="relative flex-1 min-w-[200px]">
+                  <span className="absolute inset-y-0 left-3 flex items-center text-stone-400">
+                    <SearchIcon />
+                  </span>
+                  <input 
+                    type="text"
+                    placeholder="Search courses..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-9 pr-4 py-2 bg-white border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-amber-100 focus:border-[#F9A825] transition-all"
+                  />
+                </div>
+
+                {/* Sort Dropdown */}
+                <select 
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="px-3 py-2 bg-white border border-stone-200 rounded-xl text-xs font-bold text-stone-600 focus:outline-none focus:ring-2 focus:ring-amber-100 transition-all cursor-pointer"
+                >
+                  <option value="title">Sort: Course (A-Z)</option>
+                  <option value="title-desc">Sort: Course (Z-A)</option>
+                  <option value="progress">Sort: Progress</option>
+                </select>
+
+                <button className="px-4 py-2 bg-[#F9A825] text-white text-xs font-bold rounded-xl hover:bg-[#D97706] transition-all shadow-sm shadow-amber-100 whitespace-nowrap">
+                  View All
+                </button>
+              </div>
             </div>
             
             <div className="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
-              {courses.map((course) => (
+              {processedCourses.map((course) => (
                 <div 
                   key={course.id}
                   className="min-w-[320px] bg-white rounded-3xl border border-stone-100 shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300 group cursor-pointer overflow-hidden"
@@ -110,6 +154,11 @@ export default function DashboardPage() {
                   </div>
                 </div>
               ))}
+              {processedCourses.length === 0 && (
+                <div className="w-full py-12 text-center bg-stone-50 rounded-3xl border border-dashed border-stone-200">
+                  <p className="text-stone-400 font-medium">No courses found matching "{searchQuery}"</p>
+                </div>
+              )}
             </div>
           </section>
 
@@ -219,6 +268,10 @@ export default function DashboardPage() {
 }
 
 // --- Icons ---
+
+const SearchIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+);
 
 const AnnouncementIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8a3 3 0 0 0-3-3H5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8Z"/><path d="M22 12h-4"/><path d="M18 10h4"/><path d="M18 14h4"/></svg>

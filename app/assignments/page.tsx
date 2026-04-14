@@ -1,19 +1,104 @@
 "use client";
 
-import React from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { useAssignmentStore } from "@/lib/store";
+import { Assignment } from "@/lib/data";
 
 export default function AssignmentsPage() {
   const { assignments, loading } = useAssignmentStore();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
+  const [sortBy, setSortBy] = useState<keyof Assignment>("title");
 
-  if (loading) return <div className="p-8">Loading...</div>;
+  // Priority maps for custom sorting logic
+  const statusPriority: Record<string, number> = {
+    "Submitted": 1,
+    "In Progress": 2,
+    "Pending": 3,
+    "Not Started": 4,
+  };
+
+  const duePriority: Record<string, number> = {
+    "Tomorrow": 1,
+    "In 3 days": 2,
+    "Next Week": 3,
+  };
+
+  const processedAssignments = useMemo(() => {
+    return assignments
+      .filter((item) => {
+        const matchesSearch = 
+          item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+          item.course.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesStatus = statusFilter === "All" || item.status === statusFilter;
+        return matchesSearch && matchesStatus;
+      })
+      .sort((a, b) => {
+        if (sortBy === "status") {
+          return (statusPriority[a.status] || 99) - (statusPriority[b.status] || 99);
+        }
+        if (sortBy === "due") {
+          return (duePriority[a.due] || 99) - (duePriority[b.due] || 99);
+        }
+        const valA = String(a[sortBy] || "");
+        const valB = String(b[sortBy] || "");
+        return valA.localeCompare(valB);
+      });
+  }, [assignments, searchQuery, statusFilter, sortBy]);
+
+  if (loading) return <div className="p-8 text-stone-500">Loading assignments...</div>;
 
   return (
     <div className="p-8 max-w-(--breakpoint-2xl) mx-auto space-y-8">
-      <div>
-        <h2 className="text-3xl font-bold text-stone-900 tracking-tight">Assignments</h2>
-        <p className="text-stone-500 mt-1">Manage and track your upcoming tasks.</p>
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <h2 className="text-3xl font-bold text-stone-900 tracking-tight">Assignments</h2>
+          <p className="text-stone-500 mt-1">Manage and track your upcoming tasks.</p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-4">
+          {/* Search Input */}
+          <div className="relative">
+            <span className="absolute inset-y-0 left-3 flex items-center text-stone-400">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </span>
+            <input 
+              type="text"
+              placeholder="Search assignments..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-9 pr-4 py-2 bg-white border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-100 focus:border-[#F9A825] transition-all"
+            />
+          </div>
+
+          {/* Status Filter */}
+          <select 
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="px-4 py-2 bg-white border border-stone-200 rounded-xl text-sm font-medium text-stone-600 focus:outline-none focus:ring-2 focus:ring-amber-100 transition-all cursor-pointer"
+          >
+            <option value="All">All Statuses</option>
+            <option value="Not Started">Not Started</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Submitted">Submitted</option>
+          </select>
+
+          {/* Sort Control */}
+          <div className="flex items-center space-x-2">
+            <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">Sort:</span>
+            <select 
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as keyof Assignment)}
+              className="px-4 py-2 bg-white border border-stone-200 rounded-xl text-sm font-medium text-stone-600 focus:outline-none focus:ring-2 focus:ring-amber-100 transition-all cursor-pointer"
+            >
+              <option value="title">Assignment</option>
+              <option value="course">Course</option>
+              <option value="due">Due Date</option>
+              <option value="status">Status</option>
+            </select>
+          </div>
+        </div>
       </div>
 
       <div className="bg-white rounded-3xl border border-stone-100 shadow-sm overflow-hidden">
@@ -28,7 +113,7 @@ export default function AssignmentsPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-stone-50">
-            {assignments.map((item) => (
+            {processedAssignments.map((item) => (
               <tr key={item.id} className="hover:bg-stone-50 transition-colors group">
                 <td className="px-8 py-6 font-bold text-stone-800 group-hover:text-[#F9A825] transition-colors">{item.title}</td>
                 <td className="px-8 py-6 text-stone-600 text-sm">{item.course}</td>
@@ -63,6 +148,11 @@ export default function AssignmentsPage() {
             ))}
           </tbody>
         </table>
+        {processedAssignments.length === 0 && (
+          <div className="p-12 text-center">
+            <p className="text-stone-400 font-medium">No assignments found matching your filters.</p>
+          </div>
+        )}
       </div>
     </div>
   );
