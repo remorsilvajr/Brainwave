@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default function ProfilePage() {
   return (
@@ -27,13 +27,14 @@ export default function ProfilePage() {
 
       {/* Main Grid Content */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        
         {/* Left Column: User Details */}
         <div className="space-y-8">
           <section className="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
             <div className="flex justify-between items-center mb-4">
               <h2 className="font-bold text-stone-900">User details</h2>
-              <button className="text-amber-600 text-sm hover:underline">Edit profile</button>
+              <button className="text-amber-600 text-sm hover:underline">
+                Edit profile
+              </button>
             </div>
             <div className="space-y-4 text-sm">
               <div>
@@ -48,8 +49,12 @@ export default function ProfilePage() {
           </section>
 
           <section className="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
-            <h2 className="font-bold text-stone-900 mb-4">Privacy and policies</h2>
-            <p className="text-amber-600 text-sm hover:underline cursor-pointer">Data Retention Summary</p>
+            <h2 className="font-bold text-stone-900 mb-4">
+              Privacy and policies
+            </h2>
+            <p className="text-amber-600 text-sm hover:underline cursor-pointer">
+              Data Retention Summary
+            </p>
           </section>
         </div>
 
@@ -58,13 +63,20 @@ export default function ProfilePage() {
           <section className="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
             <h2 className="font-bold text-stone-900 mb-4">Course details</h2>
             <div className="space-y-3">
-              <p className="text-sm font-semibold text-stone-900">Course profiles</p>
+              <p className="text-sm font-semibold text-stone-900">
+                Course profiles
+              </p>
               {[
                 "Advanced Web Development - Sarah Miller",
                 "Machine Learning Basics - Alan Turing",
-                "UI/UX Design Systems - Jane Cooper"
+                "UI/UX Design Systems - Jane Cooper",
               ].map((course, i) => (
-                <p key={i} className="text-sm text-amber-600 hover:underline cursor-pointer">{course}</p>
+                <p
+                  key={i}
+                  className="text-sm text-amber-600 hover:underline cursor-pointer"
+                >
+                  {course}
+                </p>
               ))}
             </div>
           </section>
@@ -85,29 +97,42 @@ export default function ProfilePage() {
             <h2 className="font-bold text-stone-900 mb-4">Login activity</h2>
             <div className="space-y-4 text-sm">
               <div>
-                <p className="font-semibold text-stone-900">First access to site</p>
-                <p className="text-stone-500 font-light">Wednesday, 1 April 2026 (8 days ago)</p>
+                <p className="font-semibold text-stone-900">
+                  First access to site
+                </p>
+                <p className="text-stone-500 font-light">
+                  Wednesday, 1 April 2026 (8 days ago)
+                </p>
               </div>
               <div>
-                <p className="font-semibold text-stone-900">Last access to site</p>
-                <p className="text-stone-500 font-light">Thursday, 9 April 2026 (now)</p>
+                <p className="font-semibold text-stone-900">
+                  Last access to site
+                </p>
+                <p className="text-stone-500 font-light">
+                  Thursday, 9 April 2026 (now)
+                </p>
               </div>
             </div>
           </section>
 
           <section className="bg-white p-6 rounded-xl border border-stone-200 shadow-sm flex flex-col items-center text-center">
-            <h2 className="font-bold text-stone-900 mb-4 self-start">Mobile app</h2>
+            <h2 className="font-bold text-stone-900 mb-4 self-start">
+              Mobile app
+            </h2>
             <div className="bg-stone-100 p-4 rounded-lg mb-4">
               {/* Placeholder for QR Code */}
               <div className="w-32 h-32 bg-white border border-stone-300 flex items-center justify-center italic text-stone-400 text-xs">
                 QR Code Here
               </div>
             </div>
-            <p className="text-xs text-stone-500 mb-2">Scan the QR code with your mobile app to login.</p>
-            <p className="text-xs text-amber-600 hover:underline cursor-pointer">Download the mobile app</p>
+            <p className="text-xs text-stone-500 mb-2">
+              Scan the QR code with your mobile app to login.
+            </p>
+            <p className="text-xs text-amber-600 hover:underline cursor-pointer">
+              Download the mobile app
+            </p>
           </section>
         </div>
-
       </div>
     </div>
   );

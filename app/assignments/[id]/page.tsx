@@ -66,23 +66,55 @@ const assignmentDetails: Record<number, AssignmentDetail> = {
 //Shared icons
 
 const CloseIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path d="M18 6 6 18M6 6l12 12" />
   </svg>
 );
 
 const FileIcon = ({ size = 18 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
     <polyline points="14 2 14 8 20 8" />
   </svg>
 );
 
 const UploadIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
     <polyline points="17 8 12 3 7 8" />
-    <line x1="12" x2="12" y1="3" y2="15" />
+    <line
+      x1="12"
+      x2="12"
+      y1="3"
+      y2="15"
+    />
   </svg>
 );
 
@@ -96,7 +128,9 @@ function StatusBadge({ status }: { status: Status }) {
     "Not Started": "bg-stone-100 text-stone-600",
   };
   return (
-    <span className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${styles[status]}`}>
+    <span
+      className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${styles[status]}`}
+    >
       {status}
     </span>
   );
@@ -135,24 +169,37 @@ function SubmissionPanel({
       <div className="p-8 space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-stone-900">Submit Assignment</h2>
+            <h2 className="text-xl font-bold text-stone-900">
+              Submit Assignment
+            </h2>
             <p className="text-sm text-stone-500 mt-0.5">{assignmentTitle}</p>
           </div>
         </div>
 
         {/* File upload */}
         <div className="space-y-2">
-          <label className="text-sm font-bold text-stone-800">Upload File</label>
-          <div className={`border-2 border-dashed rounded-2xl p-8 text-center transition-colors ${
-            selectedFileName ? "border-amber-200 bg-amber-50" : "border-stone-200 hover:border-amber-200"
-          }`}>
+          <label className="text-sm font-bold text-stone-800">
+            Upload File
+          </label>
+          <div
+            className={`border-2 border-dashed rounded-2xl p-8 text-center transition-colors ${
+              selectedFileName
+                ? "border-amber-200 bg-amber-50"
+                : "border-stone-200 hover:border-amber-200"
+            }`}
+          >
             <input
               type="file"
               className="hidden"
               id={`file-upload-panel-${assignmentId}`}
-              onChange={(e) => setSelectedFileName(e.target.files?.[0]?.name ?? "")}
+              onChange={(e) =>
+                setSelectedFileName(e.target.files?.[0]?.name ?? "")
+              }
             />
-            <label htmlFor={`file-upload-panel-${assignmentId}`} className="cursor-pointer flex flex-col items-center">
+            <label
+              htmlFor={`file-upload-panel-${assignmentId}`}
+              className="cursor-pointer flex flex-col items-center"
+            >
               <div className="w-12 h-12 bg-amber-50 text-[#F9A825] rounded-2xl flex items-center justify-center mb-4">
                 {selectedFileName ? <FileIcon size={24} /> : <UploadIcon />}
               </div>
@@ -160,7 +207,9 @@ function SubmissionPanel({
                 {selectedFileName || "Click to browse or drag & drop"}
               </p>
               <p className="text-xs text-stone-400 mt-1">
-                {selectedFileName ? "Click to change file" : "PDF, ZIP, or DOCX (Max 20MB)"}
+                {selectedFileName
+                  ? "Click to change file"
+                  : "PDF, ZIP, or DOCX (Max 20MB)"}
               </p>
             </label>
           </div>
@@ -168,7 +217,9 @@ function SubmissionPanel({
 
         {/* Comment */}
         <div className="space-y-2">
-          <label className="text-sm font-bold text-stone-800">Comment / Description</label>
+          <label className="text-sm font-bold text-stone-800">
+            Comment / Description
+          </label>
           <textarea
             rows={3}
             value={comment}
@@ -237,7 +288,9 @@ function EditPanel({
       <div className="p-8 space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-stone-900">Edit Submission</h2>
+            <h2 className="text-xl font-bold text-stone-900">
+              Edit Submission
+            </h2>
             <p className="text-sm text-stone-500 mt-0.5">{assignmentTitle}</p>
           </div>
           <div className="flex items-center space-x-2">
@@ -263,24 +316,35 @@ function EditPanel({
               <FileIcon />
             </div>
             <div>
-              <p className="text-xs font-bold text-stone-400 uppercase tracking-wider">Current File</p>
-              <p className="text-sm font-bold text-stone-800 truncate max-w-xs">{fileName}</p>
+              <p className="text-xs font-bold text-stone-400 uppercase tracking-wider">
+                Current File
+              </p>
+              <p className="text-sm font-bold text-stone-800 truncate max-w-xs">
+                {fileName}
+              </p>
             </div>
           </div>
-          <label htmlFor={`edit-file-${assignmentId}`} className="text-xs font-bold text-amber-600 hover:text-amber-700 cursor-pointer">
+          <label
+            htmlFor={`edit-file-${assignmentId}`}
+            className="text-xs font-bold text-amber-600 hover:text-amber-700 cursor-pointer"
+          >
             Change
           </label>
           <input
             type="file"
             id={`edit-file-${assignmentId}`}
             className="hidden"
-            onChange={(e) => { if (e.target.files?.[0]) setFileName(e.target.files[0].name); }}
+            onChange={(e) => {
+              if (e.target.files?.[0]) setFileName(e.target.files[0].name);
+            }}
           />
         </div>
 
         {/* Comment */}
         <div className="space-y-2">
-          <label className="text-sm font-bold text-stone-800">Comment / Description</label>
+          <label className="text-sm font-bold text-stone-800">
+            Comment / Description
+          </label>
           <textarea
             rows={3}
             value={comment}
@@ -320,7 +384,9 @@ export default function AssignmentDetailPage() {
   const assignment = assignments.find((a) => a.id === id);
   const details = assignmentDetails[id];
 
-  const [activePanel, setActivePanel] = useState<"submit" | "edit" | null>(null);
+  const [activePanel, setActivePanel] = useState<"submit" | "edit" | null>(
+    null,
+  );
 
   const togglePanel = (panel: "submit" | "edit") =>
     setActivePanel((prev) => (prev === panel ? null : panel));
@@ -348,7 +414,10 @@ export default function AssignmentDetailPage() {
     return (
       <div className="p-8 max-w-(--breakpoint-2xl) mx-auto text-center space-y-4 pt-24">
         <p className="text-stone-500 font-medium">Assignment not found.</p>
-        <Link href="/assignments" className="text-[#F9A825] font-bold hover:underline">
+        <Link
+          href="/assignments"
+          className="text-[#F9A825] font-bold hover:underline"
+        >
           ← Back to Assignments
         </Link>
       </div>
@@ -369,8 +438,14 @@ export default function AssignmentDetailPage() {
           className="flex items-center space-x-1.5 text-stone-400 hover:text-[#F9A825] font-semibold transition-colors group"
         >
           <svg
-            width="14" height="14" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             className="group-hover:-translate-x-0.5 transition-transform"
           >
             <path d="m15 18-6-6 6-6" />
@@ -378,7 +453,9 @@ export default function AssignmentDetailPage() {
           <span>Assignments</span>
         </Link>
         <span className="text-stone-300">/</span>
-        <span className="text-stone-700 font-semibold truncate max-w-xs">{assignment.title}</span>
+        <span className="text-stone-700 font-semibold truncate max-w-xs">
+          {assignment.title}
+        </span>
       </nav>
 
       {/* Hero header */}
@@ -406,23 +483,52 @@ export default function AssignmentDetailPage() {
                   onClick={() => togglePanel("edit")}
                   className="inline-flex items-center space-x-2 px-6 py-3.5 bg-[#F9A825] text-white font-bold rounded-2xl shadow-lg shadow-amber-100 hover:bg-[#D97706] hover:-translate-y-0.5 transition-all duration-200 text-sm"
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                   </svg>
-                  <span>{activePanel === "edit" ? "Close Editor" : "Edit Submission"}</span>
+                  <span>
+                    {activePanel === "edit"
+                      ? "Close Editor"
+                      : "Edit Submission"}
+                  </span>
                 </button>
               ) : (
                 <button
                   onClick={() => togglePanel("submit")}
                   className="inline-flex items-center space-x-2 px-6 py-3.5 bg-[#F9A825] text-white font-bold rounded-2xl shadow-lg shadow-amber-100 hover:bg-[#D97706] hover:-translate-y-0.5 transition-all duration-200 text-sm"
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                     <polyline points="17 8 12 3 7 8" />
-                    <line x1="12" x2="12" y1="3" y2="15" />
+                    <line
+                      x1="12"
+                      x2="12"
+                      y1="3"
+                      y2="15"
+                    />
                   </svg>
-                  <span>{activePanel === "submit" ? "Close" : "Submit Assignment"}</span>
+                  <span>
+                    {activePanel === "submit" ? "Close" : "Submit Assignment"}
+                  </span>
                 </button>
               )}
             </div>
@@ -432,42 +538,116 @@ export default function AssignmentDetailPage() {
           <div className="flex flex-wrap gap-3 pt-6 border-t border-stone-50">
             {/* Due date */}
             <div className="flex items-center space-x-2 bg-stone-50 border border-stone-100 px-4 py-2 rounded-xl">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F9A825" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10" />
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#F9A825"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                />
                 <polyline points="12 6 12 12 16 14" />
               </svg>
-              <span className="text-xs font-bold text-stone-600">Due: {assignment.due}</span>
+              <span className="text-xs font-bold text-stone-600">
+                Due: {assignment.due}
+              </span>
             </div>
 
             {details && (
               <>
                 {/* Points */}
                 <div className="flex items-center space-x-2 bg-stone-50 border border-stone-100 px-4 py-2 rounded-xl">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F9A825" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#F9A825"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                   </svg>
-                  <span className="text-xs font-bold text-stone-600">{details.points} pts</span>
+                  <span className="text-xs font-bold text-stone-600">
+                    {details.points} pts
+                  </span>
                 </div>
 
                 {/* Submission type */}
                 <div className="flex items-center space-x-2 bg-stone-50 border border-stone-100 px-4 py-2 rounded-xl">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F9A825" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#F9A825"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                     <polyline points="17 8 12 3 7 8" />
-                    <line x1="12" x2="12" y1="3" y2="15" />
+                    <line
+                      x1="12"
+                      x2="12"
+                      y1="3"
+                      y2="15"
+                    />
                   </svg>
-                  <span className="text-xs font-bold text-stone-600">{details.submissionType}</span>
+                  <span className="text-xs font-bold text-stone-600">
+                    {details.submissionType}
+                  </span>
                 </div>
 
                 {/* Course */}
                 <div className="flex items-center space-x-2 bg-stone-50 border border-stone-100 px-4 py-2 rounded-xl">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F9A825" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <rect width="18" height="18" x="3" y="4" rx="2" />
-                    <line x1="16" x2="16" y1="2" y2="6" />
-                    <line x1="8" x2="8" y1="2" y2="6" />
-                    <line x1="3" x2="21" y1="10" y2="10" />
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#F9A825"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect
+                      width="18"
+                      height="18"
+                      x="3"
+                      y="4"
+                      rx="2"
+                    />
+                    <line
+                      x1="16"
+                      x2="16"
+                      y1="2"
+                      y2="6"
+                    />
+                    <line
+                      x1="8"
+                      x2="8"
+                      y1="2"
+                      y2="6"
+                    />
+                    <line
+                      x1="3"
+                      x2="21"
+                      y1="10"
+                      y2="10"
+                    />
                   </svg>
-                  <span className="text-xs font-bold text-stone-600">{assignment.course}</span>
+                  <span className="text-xs font-bold text-stone-600">
+                    {assignment.course}
+                  </span>
                 </div>
               </>
             )}
@@ -496,26 +676,33 @@ export default function AssignmentDetailPage() {
 
       {/* Body grid */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-
         {/* Left: description & instructions */}
         <div className="xl:col-span-2">
           {details ? (
             <section className="bg-white rounded-3xl border border-stone-100 shadow-sm p-8 space-y-8">
               <div className="space-y-3">
-                <h2 className="text-xs font-bold text-stone-400 uppercase tracking-widest">Description</h2>
-                <p className="text-stone-700 leading-relaxed">{details.description}</p>
+                <h2 className="text-xs font-bold text-stone-400 uppercase tracking-widest">
+                  Description
+                </h2>
+                <p className="text-stone-700 leading-relaxed">
+                  {details.description}
+                </p>
               </div>
 
               <div className="border-t border-stone-100" />
 
               <div className="space-y-5">
-                <h2 className="text-xs font-bold text-stone-400 uppercase tracking-widest">Instructions</h2>
+                <h2 className="text-xs font-bold text-stone-400 uppercase tracking-widest">
+                  Instructions
+                </h2>
                 <ol className="space-y-5">
                   {details.instructions.map((step, i) => (
                     <li
                       key={i}
                       className="flex space-x-4"
-                      style={{ animation: `fadeSlideUp 0.2s ease-out ${0.05 * i}s both` }}
+                      style={{
+                        animation: `fadeSlideUp 0.2s ease-out ${0.05 * i}s both`,
+                      }}
                     >
                       <span className="flex-shrink-0 w-7 h-7 rounded-full bg-amber-50 text-[#F9A825] text-xs font-black flex items-center justify-center border border-amber-100 mt-0.5">
                         {i + 1}
@@ -528,8 +715,12 @@ export default function AssignmentDetailPage() {
             </section>
           ) : (
             <section className="bg-white rounded-3xl border border-stone-100 shadow-sm p-8 space-y-4">
-              <h2 className="text-xs font-bold text-stone-400 uppercase tracking-widest">Description</h2>
-              <p className="text-stone-700 leading-relaxed">No description available for this assignment.</p>
+              <h2 className="text-xs font-bold text-stone-400 uppercase tracking-widest">
+                Description
+              </h2>
+              <p className="text-stone-700 leading-relaxed">
+                No description available for this assignment.
+              </p>
             </section>
           )}
         </div>
@@ -540,16 +731,22 @@ export default function AssignmentDetailPage() {
             <div className="bg-emerald-50 border border-emerald-100 rounded-3xl p-6 space-y-4">
               <div className="flex items-center space-x-2 mb-1">
                 <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                <h2 className="text-xs font-bold text-emerald-700 uppercase tracking-widest">Submitted</h2>
+                <h2 className="text-xs font-bold text-emerald-700 uppercase tracking-widest">
+                  Submitted
+                </h2>
               </div>
               <div className="flex items-start space-x-3">
                 <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-emerald-500 shadow-sm border border-emerald-100 flex-shrink-0">
                   <FileIcon size={16} />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-bold text-emerald-800 truncate">{assignment.submission.fileName}</p>
+                  <p className="text-sm font-bold text-emerald-800 truncate">
+                    {assignment.submission.fileName}
+                  </p>
                   <p className="text-xs text-emerald-600 font-medium mt-0.5">
-                    {new Date(assignment.submission.submittedAt).toLocaleString()}
+                    {new Date(
+                      assignment.submission.submittedAt,
+                    ).toLocaleString()}
                   </p>
                 </div>
               </div>
@@ -569,10 +766,16 @@ export default function AssignmentDetailPage() {
             <div className="bg-white border border-stone-100 rounded-3xl p-6 space-y-3 shadow-sm">
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 rounded-full bg-amber-400" />
-                <h2 className="text-xs font-bold text-stone-400 uppercase tracking-widest">Not Yet Submitted</h2>
+                <h2 className="text-xs font-bold text-stone-400 uppercase tracking-widest">
+                  Not Yet Submitted
+                </h2>
               </div>
               <p className="text-sm text-stone-500 leading-relaxed">
-                Use the <span className="font-semibold text-stone-700">Submit Assignment</span> button above to upload your work before the due date.
+                Use the{" "}
+                <span className="font-semibold text-stone-700">
+                  Submit Assignment
+                </span>{" "}
+                button above to upload your work before the due date.
               </p>
             </div>
           )}
