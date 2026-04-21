@@ -13,12 +13,12 @@ const navItems = [
   {
     name: "Site Home",
     href: "/home",
-    icon: <HomeIcon size={20}/> // Placeholder
+    icon: <HomeIcon size={20}/>
   },
   {
     name: "Dashboard",
     href: "/dashboard",
-    icon: <DashboardIcon size={20}/> // Placeholder
+    icon: <DashboardIcon size={20}/> 
   },
   {
     name: "Assignments",
@@ -52,7 +52,7 @@ export default function Sidebar() {
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           const renderedIcon = item.icon 
-            ? React.cloneElement(item.icon as React.ReactElement, { active: isActive }) 
+            ? React.cloneElement(item.icon as React.ReactElement<{ active: boolean }>, { active: isActive })
             : null;
 
           return (
