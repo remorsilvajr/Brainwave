@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "mock-daigler | Learning Management System",
+  title: "Brainwave | Learning Management System",
   description: "A modern educational dashboard",
 };
 
