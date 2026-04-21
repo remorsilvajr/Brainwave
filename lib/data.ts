@@ -1,5 +1,4 @@
-
-export type Assignment = {
+export interface Assignment {
   id: number;
   title: string;
   course: string;
@@ -10,36 +9,36 @@ export type Assignment = {
   points: number;
   submissionType: string;
   submission?: {
-    fileName: string;
+    files: { name: string; type: string }[];
     comment: string;
     submittedAt: string;
   };
-};
+}
 
-export type Course = {
+export interface Course {
   id: number;
   title: string;
   instructor: string;
   progress: number;
   thumbnail: string;
   color: string;
-};
+}
 
-export type Announcement = {
+export interface Announcement {
   id: number;
   title: string;
   date: string;
   author: string;
   content: string;
-};
+}
 
-export type Activity = {
+export interface Activity {
   id: number;
   type: string;
   title: string;
   time: string;
   detail: string;
-};
+}
 
 export const initialAssignments: Assignment[] = [
   {
@@ -65,7 +64,7 @@ export const initialAssignments: Assignment[] = [
     title: "Neural Network Architecture",
     course: "Machine Learning",
     due: "In 3 days",
-    status: "In Progress",
+    status: "On Progress",
     description: "Explore the foundational architectures of neural networks by implementing a feedforward network from scratch in Python, then comparing its performance against a modern deep learning framework implementation.",
     instructions: [
       "Implement a feedforward neural network from scratch using only NumPy — no ML libraries for the core logic.",
@@ -83,7 +82,7 @@ export const initialAssignments: Assignment[] = [
     title: "Design System Documentation",
     course: "UI/UX Design",
     due: "Next Week",
-    status: "Not Started",
+    status: "Pending",
     description: "Design and document a comprehensive design system from first principles. You will establish visual tokens, component specifications, and usage guidelines that could serve as the foundation for a real product.",
     instructions: [
       "Define a complete set of design tokens: color palette (with semantic aliases), typography scale, spacing system, border radii, and shadow levels.",
@@ -101,7 +100,7 @@ export const initialAssignments: Assignment[] = [
     title: "Mock Assignment",
     course: "UI/UX Design",
     due: "Next Week",
-    status: "Not Started",
+    status: "Pending",
     description: "Design and document a comprehensive design system from first principles. You will establish visual tokens, component specifications, and usage guidelines that could serve as the foundation for a real product.",
     instructions: [
       "Define a complete set of design tokens: color palette (with semantic aliases), typography scale, spacing system, border radii, and shadow levels.",

@@ -10,8 +10,7 @@ function StatusBadge({ status }: { status: Assignment["status"] }) {
   const styles: Record<Assignment["status"], string> = {
     Submitted: "bg-emerald-100 text-emerald-700",
     Pending: "bg-amber-100 text-amber-700",
-    "In Progress": "bg-blue-100 text-blue-700",
-    "Not Started": "bg-stone-100 text-stone-600",
+    "On Progress": "bg-blue-100 text-blue-700",
   };
   return (
     <span
@@ -31,9 +30,8 @@ function AssignmentsContent() {
   const [sortBy, setSortBy] = useState<keyof Assignment>(initialSort);
   const statusPriority: Record<string, number> = {
     Submitted: 1,
-    "In Progress": 2,
+    "On Progress": 2,
     Pending: 3,
-    "Not Started": 4,
   };
   const duePriority: Record<string, number> = {
     Tomorrow: 1,
@@ -116,9 +114,9 @@ function AssignmentsContent() {
             className="px-4 py-2 bg-white border border-stone-200 rounded-xl text-sm font-medium text-stone-600 focus:outline-none focus:ring-2 focus:ring-amber-100 transition-all cursor-pointer"
           >
             <option value="All">All Statuses</option>
-            <option value="Not Started">Not Started</option>
-            <option value="In Progress">In Progress</option>
+            <option value="On Progress">On Progress</option>
             <option value="Submitted">Submitted</option>
+            <option value="Pending">Pending</option>
           </select>
 
           {/* Sort */}
@@ -200,7 +198,7 @@ function AssignmentsContent() {
                       className="text-xs font-bold text-[#F9A825] hover:text-[#D97706] transition-colors border-2 border-amber-100 hover:border-amber-200 px-4 py-2 rounded-xl"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      Edit Submission
+                      Edit
                     </Link>
                   ) : (
                     <Link

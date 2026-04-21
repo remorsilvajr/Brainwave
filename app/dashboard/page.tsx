@@ -14,9 +14,9 @@ import { useAssignmentStore } from "@/lib/store";
 import { AnnouncementsIcon } from "@/components/Icons";
 import { ActivityIcon } from "@/components/Icons";
 import { DeadlineIcon, ClockIcon as DueDateIcon } from "@/components/Icons";
-import { initialCourses as courses } from "@/lib/data";
+import { type Course, type Assignment, type Announcement, type Activity } from "@/lib/data";
 
-function DashboardCourseItem({ course }: { course: any }) {
+function DashboardCourseItem({ course }: { course: Course }) {
   return (
     <div
       key={course.id}
@@ -60,7 +60,7 @@ function DashboardCourseItem({ course }: { course: any }) {
   );
 }
 
-function DashboardCourseOverview({ courses }: { courses: any[] }) {
+function DashboardCourseOverview({ courses }: { courses: Course[] }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("title");
 
@@ -145,7 +145,7 @@ function DashboardCourseOverview({ courses }: { courses: any[] }) {
 function DashboardAnnouncementItem({
   announcement,
 }: {
-  announcement: any;
+  announcement: Announcement;
 }) {
   return (
     <Link
@@ -168,7 +168,7 @@ function DashboardAnnouncementItem({
   );
 }
 
-function DashboardAnnouncementWidget({ announcements }: { announcements: any[] }) {
+function DashboardAnnouncementWidget({ announcements }: { announcements: Announcement[] }) {
   return (
     <div className="bg-white p-6 rounded-3xl border border-stone-100 shadow-sm">
       <div className="flex items-center justify-between mb-6">
@@ -186,7 +186,7 @@ function DashboardAnnouncementWidget({ announcements }: { announcements: any[] }
   );
 }
 
-function DashboardRecentActivityItem({ activity }: { activity: any }) {
+function DashboardRecentActivityItem({ activity }: { activity: Activity }) {
   return (
     <div
       key={activity.id}
@@ -214,7 +214,7 @@ function DashboardRecentActivityItem({ activity }: { activity: any }) {
   );
 }
 
-function DashboardRecentActivityWidget({ activities }: { activities: any[] }) {
+function DashboardRecentActivityWidget({ activities }: { activities: Activity[] }) {
   return (
     <div className="bg-white p-6 rounded-3xl border border-stone-100 shadow-sm">
       <div className="flex items-center justify-between mb-6">
@@ -252,7 +252,7 @@ function DashboardRecentActivityWidget({ activities }: { activities: any[] }) {
   );
 }
 
-function DashboardDeadlineItem({ assignments }: { assignments: any[] }) {
+function DashboardDeadlineItem({ assignments }: { assignments: Assignment[] }) {
   // Map store assignments to a structure compatible with the Deadline display
   const deadlinesFromAssignments = useMemo(() => {
     if (!Array.isArray(assignments)) return [];
